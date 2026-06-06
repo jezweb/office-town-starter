@@ -1,0 +1,6 @@
+.DS_Store
+*.log
+
+# Local-only working space (plans, audits, scripts, screenshots).
+# Public repo — keep the whole tree off GitHub.
+.jez/

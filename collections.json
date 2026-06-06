@@ -1,0 +1,17 @@
+{
+  "$comment": "The default wiki collections a fresh town ships with. Mirrors the INSERT INTO wiki_collections in office-town-cloud/src/bootstrap.ts — keep the two in sync. shape is one of entity-as-folder | dated-stream | flat-topic.",
+  "version": 1,
+  "collections": [
+    { "name": "business",  "shape": "flat-topic",       "canonical_filename": "",            "required_fields": ["name"],                  "description": "The business this town serves" },
+    { "name": "owner",     "shape": "flat-topic",       "canonical_filename": "",            "required_fields": [],                        "description": "Principal user voice, rhythm, bio" },
+    { "name": "team",      "shape": "entity-as-folder", "canonical_filename": "profile.md",  "required_fields": ["name"],                  "description": "Humans + agents on the team" },
+    { "name": "contacts",  "shape": "entity-as-folder", "canonical_filename": "contact.md",  "required_fields": ["name"],                  "description": "External people we interact with" },
+    { "name": "orgs",      "shape": "entity-as-folder", "canonical_filename": "entity.md",   "required_fields": ["name", "entity_type"], "description": "External organisations" },
+    { "name": "projects",  "shape": "entity-as-folder", "canonical_filename": "project.md",  "required_fields": ["name"],                  "description": "Active and historical projects" },
+    { "name": "decisions", "shape": "entity-as-folder", "canonical_filename": "decision.md", "required_fields": ["title"],                 "description": "Decisions made — with rationale" },
+    { "name": "knowledge", "shape": "entity-as-folder", "canonical_filename": "concept.md",  "required_fields": ["title"],                 "description": "Curated knowledge concepts" },
+    { "name": "research",  "shape": "dated-stream",     "canonical_filename": "",            "required_fields": ["title"],                 "description": "Time-stamped investigations" },
+    { "name": "feedback",  "shape": "dated-stream",     "canonical_filename": "",            "required_fields": ["title"],                 "description": "User feedback, escalations, retros" },
+    { "name": "tasks",     "shape": "entity-as-folder", "canonical_filename": "task.md",     "required_fields": ["title"],                 "description": "Tasks, todos, and in-flight work items" }
+  ]
+}
