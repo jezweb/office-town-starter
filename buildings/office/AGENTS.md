@@ -2,7 +2,7 @@
 
 Home base of **@boss** — your primary contact. This is where you go to talk to the town: say what you want, and @boss routes it to the Workshop, Library, or Lookout and holds the thread.
 
-@boss is a Goose agent; its brief ships in [`office-town-plugin`](https://github.com/jezweb/office-town-plugin) (`agents/boss.md`). This folder is its memory:
+@boss is a Goose agent; its brief is `.agents/agents/boss.md` in this town. This folder is its memory:
 
 | Folder | What lives here |
 |---|---|

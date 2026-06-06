@@ -1,0 +1,9 @@
+{
+  "name": "office-town",
+  "version": "1.0.0",
+  "description": "Project-scope plugin carrying Office Town's session hooks. Lives inside the town and syncs with it — no separate install. Roles, skills, and recipes live directly in the town's .agents/ folders; only hooks must come from a plugin, so they live here.",
+  "author": { "name": "Jezweb", "email": "jeremy@jezweb.net", "url": "https://jezweb.com.au" },
+  "homepage": "https://officetown.au",
+  "license": "MIT",
+  "hooks": "./hooks/hooks.json"
+}

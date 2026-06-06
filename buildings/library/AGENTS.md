@@ -2,7 +2,7 @@
 
 Home base of **@librarian** — the wiki's growth engine. Come here to have something extracted, filed, or looked up: *"save this client as an org," "pull what we know about X," "file this email."*
 
-@librarian is a Goose agent; its brief ships in [`office-town-plugin`](https://github.com/jezweb/office-town-plugin) (`agents/librarian.md`). This folder is its memory:
+@librarian is a Goose agent; its brief is `.agents/agents/librarian.md` in this town. This folder is its memory:
 
 | Folder | What lives here |
 |---|---|

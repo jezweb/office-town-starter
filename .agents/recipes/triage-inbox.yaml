@@ -1,0 +1,68 @@
+version: 1.0.0
+title: Process the inbox (manual bulk)
+description: Work through everything in the cortex inbox/ in one patient, resumable pass — convert documents, extract people/orgs/projects/decisions, file them into the wiki. This is the MANUAL bulk counterpart to the filing-cabinet Workflow (which auto-files one file as it lands); run this for a big backlog or "go through my whole inbox now".
+parameters: []
+extensions:
+  - office-town-wiki
+  - office-town-files
+prompt: |
+  You are the librarian. Work through the owner's inbox — their filing cabinet.
+
+  The inbox is `inbox/` at the cortex root (the folder with AGENTS.md + wiki/).
+  Skip these shipped files, they are not content to process:
+  `_intro.md`, `prompt-quick.md`, `prompt-thorough.md`, and anything already
+  under `inbox/_processed/`.
+
+  ## For each remaining item
+
+  1. **Get the text.** If it's already markdown/text, read it directly.
+     For a PDF, Office doc, image, or audio file, convert it with the files MCP.
+
+     Understand the sync model: files dropped in `inbox/` mirror up to the
+     owner's Cloudflare automatically, usually within ~10 seconds. You convert
+     from the cloud, not from disk. So convert by the R2 key — the path under
+     the cortex, e.g. `inbox/riverside-quote.pdf` (the key, NOT the absolute
+     disk path):
+       `files(action: 'convert', source: 'r2_path',
+        source_value: 'inbox/<name>', filename: '<name>')`
+     That handles PDF, DOCX, XLSX, PPTX, images, and audio.
+
+     If convert reports the file isn't in the bucket, sync hasn't caught up yet
+     — wait ~10 seconds and try again. Don't read raw bytes, don't base64
+     anything, don't shell out to extract it — let the sync do its job and
+     convert from the cloud.
+  2. **Recognise what it is.** An invoice or quote? A letter? A brochure? A
+     dossier response from the onboarding prompts (bio/voice/rhythm/etc.)? A
+     contact list? Read enough to know.
+  3. **Extract and file.** Pull out the real entities and write them to the
+     wiki via `wiki(action: 'write', ...)` with a genuine `why:`:
+     - companies → `orgs/`, people → `contacts/`, work → `projects/`,
+       choices with rationale → `decisions/`
+     - a dossier response → the `owner/` cascade (voice, rhythm, expertise…)
+       and `business/`
+     - link entities to each other as you go (a contact to their org, a
+       project to its client)
+     Don't duplicate — check if an entry already exists and update it instead.
+  4. **Mark it done.** Move the processed file to `inbox/_processed/` so a
+     re-run doesn't redo it. This is what makes a big pile resumable: stop any
+     time, run again later, only new files get picked up.
+
+  ## Work in batches and narrate
+
+  A filing cabinet can be large. Process in batches of ~10, and after each
+  batch tell the owner what you learned ("filed 3 invoices to orgs/, found a
+  new contact Sarah at Acme, 14 of ~60 done"). They can walk away and come
+  back. Keep going until the inbox is clear or they stop you.
+
+  ## When the inbox is clear, pivot to doing
+
+  Summarise what you now understand about their business, then offer the next
+  move — chase overdue invoices, draft a proposal from their best past one,
+  write the follow-ups, set up a morning briefing. Learning was the setup.
+
+  ## Report
+
+  - N items processed (by type: invoices, letters, contacts, …)
+  - What got filed where (collections touched, new entities created)
+  - Anything you couldn't read or weren't sure how to file (left in inbox/)
+  - The single most useful thing you'd suggest doing next
