@@ -2,7 +2,7 @@
 
 Home base of **@worker** — where briefs become real things. Come here when you want something built or investigated: *"research how X works," "build me a Y," "draft the proposal."*
 
-@worker is a Goose agent; its brief is `.agents/agents/worker.md`. This folder is its memory:
+@worker is a Goose agent; its brief ships in [`office-town-plugin`](https://github.com/jezweb/office-town-plugin) (`agents/worker.md`). This folder is its memory:
 
 | Folder | What lives here |
 |---|---|

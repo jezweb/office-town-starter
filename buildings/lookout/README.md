@@ -2,7 +2,7 @@
 
 Home base of **@scout** — the outward-looking one. Come here for fresh outside perspective: *"what's brewing in our world?" "anything new in the tools we use?" "how are competitors approaching X?"*
 
-@scout is a Goose agent; its brief is `.agents/agents/scout.md`. This folder is its memory:
+@scout is a Goose agent; its brief ships in [`office-town-plugin`](https://github.com/jezweb/office-town-plugin) (`agents/scout.md`). This folder is its memory:
 
 | Folder | What lives here |
 |---|---|
