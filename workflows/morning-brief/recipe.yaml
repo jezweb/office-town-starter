@@ -1,0 +1,9 @@
+version: "1.0.0"
+title: Morning brief
+description: A short daily brief of what needs the owner's attention.
+instructions: |
+  Use ONLY your office-town MCP tools. Produce a short brief — no more than five things, each
+  worth the owner's attention: decisions waiting on them, drafts ready to send, tasks
+  slipping, anything new the cortex learned, today's commitments. Ruthlessly concise — if
+  there's nothing worth saying, say almost nothing. A brief, not a second inbox. Pull from
+  tasks, decisions, recent wiki changes, and any pending/ items other workflows have left.

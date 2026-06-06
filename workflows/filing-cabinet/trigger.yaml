@@ -1,0 +1,6 @@
+on: inbox
+match: "*.{pdf,jpg,jpeg,png,heic,docx,xlsx}"
+trust: auto
+owner: worker
+status: active
+report: receipt

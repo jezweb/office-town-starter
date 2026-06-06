@@ -1,9 +1,8 @@
-# Workflows — the town's standing jobs
+# workflows — the town's standing jobs
 
 A **workflow** is a standing responsibility the town owns. You turn it on once; it fires on a trigger, does the work end to end, and reports back in a line. More than a recipe you run and more than a skill you have: it has a trigger that fires it, a goal it reasons toward, and ownership of an outcome over time.
 
-A workflow is a Goose recipe plus a thin trigger. Each lives at `workflows/<slug>/`:
-
+Each lives at `workflows/<slug>/`:
 - `recipe.yaml` — a standard Goose recipe. Its `instructions:` are the goal in plain language. Runnable on its own: `goose run --recipe workflows/<slug>/recipe.yaml`.
 - `trigger.yaml` — when it fires + trust: `on:` (`inbox` | `schedule` | `webhook` | `demand`), `match:`/`cron:`, `trust:` (`auto` | `review` | `ask`), `owner:`, `status:` (`active` | `paused`).
 - `log.md` — one-line receipts. `pending/` — drafts awaiting the owner's OK.
@@ -21,4 +20,14 @@ A workflow is a Goose recipe plus a thin trigger. Each lives at `workflows/<slug
 - `review` — do the work, but anything outward or lossy (send email, publish, merge, delete) goes to `workflows/<slug>/pending/` as a draft; tell the owner it's ready.
 - `ask` — confirm before acting.
 
-No workflows ship with the starter. Add your own, or install an industry pack that brings its own.
+## The starters that ship
+
+| Workflow | Fires on | Trust | Status |
+|---|---|---|---|
+| **filing-cabinet** | a doc lands in `inbox/` | auto | active |
+| **ask-my-cortex** | on demand | auto | active |
+| **meeting-to-actions** | a recording lands in `inbox/` | review | active |
+| **morning-brief** | daily 7am | auto | paused (turn on when ready) |
+| **relationship-keeper** | weekly Mon 8am | review | paused |
+
+Add one by asking an agent ("put my X on a workflow"). Pause one by setting `status: paused` in its `trigger.yaml`.

@@ -1,0 +1,13 @@
+version: "1.0.0"
+title: Filing cabinet
+description: Read receipts/invoices/docs dropped in inbox and file them into the wiki.
+instructions: |
+  Use ONLY your office-town MCP tools (the cortex is in the cloud, not local files).
+  For each unfiled document in inbox/ (or the one named in the payload): convert it with
+  files(action: convert, source: r2_path) — never base64; wait ~10s if it hasn't synced.
+  Pull out who / what / when / how much (vendor, amount, date, any reference number) and
+  file it: create or update the relevant org / contact / project in the wiki and link the
+  document to it. Only surface a one-line note if something genuinely needs the owner — a
+  duplicate, an amount over $2,000, a missing tax field, or an org you can't confidently
+  match. Otherwise file it quietly and append one line to workflows/filing-cabinet/log.md:
+  what you filed and where.

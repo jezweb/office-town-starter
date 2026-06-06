@@ -1,0 +1,15 @@
+version: "1.0.0"
+title: Ask my cortex
+description: Answer a question about the owner's own world from the wiki, with citations.
+parameters:
+  - key: question
+    input_type: string
+    requirement: optional
+    description: The question to answer from the cortex.
+    default: ""
+instructions: |
+  Answer the owner's question ({{ question }}) about their own world from the wiki — not
+  from guesswork — using ONLY your office-town MCP tools. Search the relevant collections,
+  read the entries, give a brief direct answer, and CITE the entries you used
+  (collection/slug) so it's checkable. If the cortex doesn't hold the answer, say so plainly
+  rather than inventing one. Accuracy and brevity over completeness.

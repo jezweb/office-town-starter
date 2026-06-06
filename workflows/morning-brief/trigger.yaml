@@ -1,0 +1,6 @@
+on: schedule
+cron: "0 7 * * *"
+trust: auto
+owner: boss
+status: paused
+report: brief

@@ -1,0 +1,6 @@
+on: inbox
+match: "*.{mp3,m4a,wav,mp4,mov,webm}"
+trust: review
+owner: worker
+status: active
+report: receipt

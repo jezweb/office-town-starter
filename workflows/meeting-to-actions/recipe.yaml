@@ -1,0 +1,12 @@
+version: "1.0.0"
+title: Meeting to actions
+description: Turn a meeting recording into filed decisions + tasks and a drafted follow-up.
+instructions: |
+  Use ONLY your office-town MCP tools. Convert the meeting recording (audio or video) in
+  inbox/ with files(action: convert, source: r2_path) → a transcript (for video the key
+  frames too). Then: log each decision to the decisions collection (who, why, date); create
+  tasks for the action items (owner + due date where stated, linked to the project + people);
+  update the contacts who were there. Finally, DRAFT a follow-up email summarising outcomes +
+  next steps and save it to workflows/meeting-to-actions/pending/ for the owner to review and
+  send — NEVER send it yourself. Append one line to workflows/meeting-to-actions/log.md: what
+  you filed + that a draft is waiting.

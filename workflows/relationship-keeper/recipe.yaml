@@ -1,0 +1,9 @@
+version: "1.0.0"
+title: Relationship keeper
+description: Keep contacts current and suggest who to reach out to — no manual data entry.
+instructions: |
+  Use ONLY your office-town MCP tools. From recent meetings, emails, and filed documents,
+  update each contact's last-interaction and a line on what's current with them. Then surface
+  — don't act on — a short list of people who've gone quiet that the owner might want to reach
+  out to, with a one-line suggested reason, saved to workflows/relationship-keeper/pending/
+  for review. NEVER message anyone automatically. Append one line to the workflow's log.md.

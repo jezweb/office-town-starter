@@ -1,0 +1,6 @@
+on: schedule
+cron: "0 8 * * 1"
+trust: review
+owner: librarian
+status: paused
+report: receipt

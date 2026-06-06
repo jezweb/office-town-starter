@@ -13,6 +13,27 @@ You're working in an **Office Town** — a place to work from, not a database. I
 
 The roles are addressable as `@boss`, `@librarian`, `@worker`, `@scout`.
 
+## Working with the inbox + files
+
+The fastest path to something useful: the owner drops their filing cabinet (invoices, quotes, letters, brochures, photos, scans, PDFs, recordings) into `inbox/`, and you read through it and learn their business.
+
+- Convert a file by its cortex path, never by reading raw bytes or base64:
+  `files(action: 'convert', source: 'r2_path', source_value: 'inbox/<name>', filename: '<name>')`.
+- Files dropped in `inbox/` sync up to the cloud automatically, usually within ~10s. If convert says the file isn't found yet, wait ~10s and retry.
+- It routes by type: PDF/Word/Excel/HTML → text; images → a description that also reads visible text; audio → a Whisper transcript; video → key frames described + audio transcribed. PowerPoint → ask the owner to export to PDF.
+- Work through a pile patiently: read each item, extract the orgs/contacts/projects/decisions, file them into the wiki, tell them what you learned. **After you've learned something, pivot to doing** (chase invoices, draft the follow-up, set up a morning brief).
+
+## The cloud extensions (MCP)
+
+You have these Office Town MCP extensions (wired to the cloud worker, separate from this folder): `wiki`, `files`, `email`, `cron`, `voice`, `sandbox`.
+- `email` sends mail but needs Cloudflare Email Routing on the owner's domain — if a send fails on config, say so plainly.
+- `voice` call actions and `sandbox` run are alpha (`status: not_yet_wired`) — say it's coming, don't error confusingly.
+- For anything else (Slack, Drive, a CRM): use a skill/extension if you have one; otherwise tell the owner what to connect, don't build the integration yourself.
+
+## Knowing the owner
+
+When you're about to write in their voice and `wiki/owner/` is thin, offer to learn it: ask a few questions, or point them at `inbox/prompt-quick.md` / `inbox/prompt-thorough.md` to paste into Claude/ChatGPT/Gemini and drop the result back. Ingesting their filing cabinet also fills a lot of this in.
+
 ---
 
 # Standing orders
