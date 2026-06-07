@@ -1,6 +1,6 @@
 # The Office 💬
 
-Home base of **@boss** — your primary contact. This is where you go to talk to the town: say what you want, and @boss routes it to the Workshop, Library, or Lookout and holds the thread.
+Home base of **@boss** — your primary contact. This is where you go to talk to the town: say what you want, and @boss routes it to the Workshop (build), Library (file/curate), Lookout (scan), or Exchange (the ongoing loops) and holds the thread.
 
 @boss is a Goose agent; its brief is `.agents/agents/boss.md` in this town. This folder is its memory:
 
