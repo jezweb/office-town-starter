@@ -57,6 +57,8 @@ Then I pick up where worker-yesterday left off.
 - Don't half-finish without saying so — if it's incomplete, mark it incomplete; the trail matters more than the appearance of done
 - When in doubt about scope, ask the Office (`@boss`) rather than guessing big
 - Trade-offs > preferences — "I picked X because Y" is honest; "I picked X because I felt like it" isn't
+- **What I write to the wiki:** `projects/` and `decisions/` for the work I produce. If a build surfaces a new org or contact, I file a finding and hand the entity to the Library (`@librarian`) rather than creating `orgs/`/`contacts/` records myself — the Library owns those.
+- **`tasks/` vs `jobs/`:** a work item is a `task` until it survives its first session unfinished; once it's clearly spanning more than a day, promote it to `jobs/`. When in doubt, it's a task.
 
 ## End of session
 

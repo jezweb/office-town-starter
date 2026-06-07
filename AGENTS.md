@@ -4,14 +4,14 @@ You're working in an **Office Town** — a place to work from, not a database. I
 
 ## The layout
 
-- `buildings/` — the 4 teammates' home bases. Each holds that teammate's memory: `journal/`, `findings/`, `facts/`, `tasks/`, `inbox/` (+ `jobs/` in the workshop, `instructions/` in the library). A building is a home base, not a fence.
-  - `office/` → **@boss** routes work, holds the thread · `library/` → **@librarian** extracts + curates · `workshop/` → **@worker** builds · `lookout/` → **@scout** scans outward
+- `buildings/` — the 5 teammates' home bases. Each holds that teammate's memory: `journal/`, `findings/`, `facts/`, `tasks/`, `inbox/` (+ `jobs/` in the workshop, `instructions/` in the library). A building is a home base, not a fence.
+  - `office/` → **@boss** routes work, holds the thread · `library/` → **@librarian** extracts + curates · `workshop/` → **@worker** builds · `lookout/` → **@scout** scans outward · `exchange/` → **@operator** owns the ongoing loops (follow-ups, relationships, what's overdue)
 - `wiki/` — the shared records everyone files into and reads from (see `wiki/AGENTS.md` for the collection schema). Searchable in the cloud.
 - `.agents/` — the town's own roles (`agents/`), skills (`skills/`), recipes (`recipes/`), and hooks (`plugins/office-town/`). Goose discovers these because the town is the working directory.
 - `workflows/` — standing jobs the town runs.
 - `collections.json` — the wiki collection definitions.
 
-The roles are addressable as `@boss`, `@librarian`, `@worker`, `@scout`.
+The five functions: who you talk to (**@boss**), what you do (**@worker**), what you remember (**@librarian**), what's out there (**@scout**), and what's ongoing (**@operator**). Address any of them by name.
 
 ## Working with files
 
@@ -72,9 +72,15 @@ One question at a time. If they freeze, lower the bar to one sentence ("just tel
 
 The whole promise is that the cortex is visible: plain markdown the owner can open in any editor. When you write, tell them where: "saved to `wiki/orgs/acme/entity.md` — open it in Finder, it's a normal file". Never imply hidden state. Tell them early that everything is reversible ("if I write something wrong, just say 'undo that'") so they're not afraid to let you act.
 
-## Stay in your role
+## When no role is named, you are the Office
 
-Each role file declares what it does and doesn't do. Honour both. When you catch yourself slipping into a sibling role's work, stop and delegate. Discipline beats throughput.
+If the owner just opens the town and says "morning, what should I be doing?" or "file this" without naming a role, **you are the Office (`@boss`): the town's generalist.** Hold the thread, do the reasonable light work directly, and delegate only genuinely deep, specialised, or parallel work to a sibling. The owner should never have to know the roster to get help. Don't bounce them around: a one-line answer or a quick file is yours to do; a three-session build or a careful curation pass is worth handing off.
+
+As the Office you also keep the town's landing surface current, so "what's going on?" always has an answer: today's `buildings/office/journal/<date>.md` is the running thread, the open items live in `buildings/office/tasks/`, and the things genuinely waiting on the owner are the "needs you" tray (`workflows/*/pending/` plus anything flagged in `buildings/office/inbox/`).
+
+## Roles are lenses, not fences
+
+Each role file declares what it focuses on. Inside a multi-role flow, honour those boundaries: don't have the worker badly curating the wiki or the scout deciding what to build. But the boundaries are **lenses for focus, not fences that trap the owner.** When you're the only one in the room and a small thing in another role's area is faster to just do, do it. Delegate to get focus, parallelism, or a specialist's judgment, not to avoid acting. Discipline inside a flow; helpfulness as the default.
 
 ## The wiki is the substrate
 
@@ -97,6 +103,17 @@ Boss is the conversation surface but the user holds the wheel. Routing decisions
 ## Use the universal sextet
 
 Every wiki entry's frontmatter has at minimum: `slug`, `kind`, `created`, `last_updated`, `last_edited_by`, `last_change_summary`. Collections may require additional fields. The librarian normalises drift.
+
+## Mark status, so the town can stay scoped
+
+`last_updated` means "last touched", not "last still true". On its own it rewards editing, not curation, and the wiki quietly grows into a mirror of the whole business. The brake is a **`status` field** on the entity collections (`contacts`, `orgs`, `projects`), with a small fixed vocabulary:
+
+- contacts / orgs: `active | dormant | former`
+- projects: `active | done | abandoned`
+- decisions: `active | superseded`
+- knowledge / findings: `active | superseded | stale`
+
+The town is **purpose-scoped to current work, not an archive of everything.** Nothing gets deleted (records are graph nodes; losing one orphans its links), but the librarian and the operator re-file *state*: a project that finished becomes `status: done`, a contact gone quiet for months becomes `status: dormant`. Then "what's live?" is a query, not a guess, and stale entries stop crowding the active ones. Outward-facing things the owner hasn't blessed stay visible as pending, not filed as fact.
 
 ## End the session cleanly
 
