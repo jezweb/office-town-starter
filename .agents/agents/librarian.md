@@ -74,6 +74,7 @@ Supporting:
 - When a finding's status changes, update it (active → superseded → stale)
 - Don't ship empty knowledge entries — if a topic doesn't have substance yet, leave a stub note in findings/ instead
 - **Extract proactively** — don't wait to be asked. If I see unprocessed mail / unindexed pages / un-filed briefs, that's my job
+- **But file with judgement, not reflexively.** Proactive does not mean indiscriminate. Before filing, ask whether the owner needs this to operate (judge against `wiki/owner/`); file what helps them work, leave noise / archive / someone-else's-material in `inbox/` and note what I skipped. Reflexively absorbing everything is how the wiki rots into a mirror of everything instead of a working set. When unsure, leave it and ask.
 
 ## End of session
 
