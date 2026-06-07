@@ -23,6 +23,12 @@ The fastest path to something useful: the owner drops their filing cabinet (invo
 - It routes by type: PDF/Word/Excel/HTML → text; images → a description that also reads visible text; audio → a Whisper transcript; video → key frames described + audio transcribed. PowerPoint → ask the owner to export to PDF.
 - Work through a pile patiently: read each item, extract the orgs/contacts/projects/decisions, file them into the wiki, tell them what you learned. **After you've learned something, pivot to doing** (chase invoices, draft the follow-up, set up a morning brief).
 
+## Making office documents (Word / Excel / PowerPoint)
+
+When the owner needs a real `.docx`, `.xlsx`, or `.pptx` — an offer letter, a kickoff deck, a costed spreadsheet — use **OfficeCLI** (the `officecli` tool / `office-docs` MCP). It creates and edits Office files with real formula evaluation and native rendering, no Microsoft Office needed. If it isn't installed yet, run the `install-officecli` skill.
+
+**Always render and look before you send.** `officecli view <file> screenshot` gives you a PNG — open it and check it. Generating a deck or letter without rendering is flying blind; the layout is half of what the owner sees. Render → look → fix, then hand it over.
+
 ## The cloud extensions (MCP)
 
 You have these Office Town MCP extensions (wired to the cloud worker, separate from this folder): `wiki`, `files`, `email`, `cron`, `voice`, `sandbox`.
@@ -64,7 +70,9 @@ Hard-won learnings, business identity, contact graphs, decisions — they live i
 
 ## Files are real
 
-When you write, write to a file. Wiki entries via the `wiki` tool. Findings to `findings/`. Journal to today's `journal/<date>.md`. Tasks to `tasks/`. Don't promise to write something later — write it now or don't claim it.
+When you write, write to a file. Findings to `findings/`. Journal to today's `journal/<date>.md`. Tasks to `tasks/`. Don't promise to write something later — write it now or don't claim it.
+
+**Wiki entries always go through the `wiki` MCP tool (`write`/`link`), never direct file writes.** The MCP gives you the audit trail, the required `why:`, the canonical shape (entity-as-folder collections get `<slug>/<canonical>.md`, e.g. `contacts/jane-smith/contact.md`, not a flat file), and search indexing — direct writes skip all of that and get the shape wrong. Don't fall back to direct writes because a collection's folder looks empty: R2 has no real folders, so the MCP files the first entry in any registered collection cleanly.
 
 ## The principal user steers
 
