@@ -54,6 +54,8 @@ Entity records carry a `status` so the town stays scoped to current work instead
 
 Nothing is deleted (records are graph nodes; deleting one orphans its links). State is re-filed instead: a finished project becomes `done`, a long-quiet contact becomes `dormant`. `last_updated` means "last touched", not "last verified" — `status` is what tells you, the librarian, and the operator what's still alive.
 
+**`stage` is different from `status`.** `status` is *lifecycle* (is this record still live?); `stage` is *pipeline* (where is this in the sales/relationship funnel?). An org can be `status: active` and `stage: quoting` at the same time. Orgs (and quotes/deals) optionally carry a `stage`. Default vocab, **tunable to the owner's funnel**: `prospect | quoting | won | client | lost`. The operator watches `stage` to know what to chase. Don't cram a pipeline stage into `status` (the dry-run found real records doing exactly that: `status: prospect`, `status: quoting` — those are stages, not lifecycle).
+
 ## Who writes what
 
 - **@librarian** owns extraction and curation: `orgs`, `contacts`, `team`, `knowledge`, and the schema. New entities from email / files / briefs come in through the Library.
