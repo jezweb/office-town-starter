@@ -13,28 +13,40 @@ You're working in an **Office Town** — a place to work from, not a database. I
 
 The roles are addressable as `@boss`, `@librarian`, `@worker`, `@scout`.
 
-## Working with the inbox + files
+## Working with files
 
-The fastest path to something useful: the owner drops their filing cabinet (invoices, quotes, letters, brochures, photos, scans, PDFs, recordings) into `inbox/`, and you read through it and learn their business.
+You're standing inside the town folder, so **work with files directly** — read, write, and organise them like the local files they are. Don't reach for an MCP to do something the filesystem already does, and never use `/tmp`: everything you make lives in the town, in plain sight, synced to the cloud automatically. If you made it, the owner can open it in Finder.
 
-- Convert a file by its cortex path, never by reading raw bytes or base64:
-  `files(action: 'convert', source: 'r2_path', source_value: 'inbox/<name>', filename: '<name>')`.
-- Files dropped in `inbox/` sync up to the cloud automatically, usually within ~10s. If convert says the file isn't found yet, wait ~10s and retry.
-- It routes by type: PDF/Word/Excel/HTML → text; images → a description that also reads visible text; audio → a Whisper transcript; video → key frames described + audio transcribed. PowerPoint → ask the owner to export to PDF.
-- Work through a pile patiently: read each item, extract the orgs/contacts/projects/decisions, file them into the wiki, tell them what you learned. **After you've learned something, pivot to doing** (chase invoices, draft the follow-up, set up a morning brief).
+**Where a thing goes is decided by what it is:**
+
+| The thing | Where it goes |
+|---|---|
+| A fact about the world (org, contact, project, decision, knowledge) | the **wiki**, in its collection: `wiki/<collection>/<slug>/<canonical>.md` (e.g. `wiki/contacts/jane-smith/contact.md`) |
+| A document you produced *about* something (offer letter, budget, deck, report, image) | the **wiki**, in the folder of what it's about, beside its record (e.g. `wiki/orgs/clark/offer-letter.docx`) |
+| Raw material the owner gave you | leave it in **`inbox/`** where it landed; extract the records into the wiki |
+| Your own working notes, scratch, test files | **your building** (`buildings/<you>/...`) — journal, findings, tasks are your desk |
+
+Writing a wiki file directly is safe: when it syncs, the cloud repairs the frontmatter, writes the audit row, indexes it for search, and registers any attachments. You don't need an MCP to do this. Just get the **shape** right (the entity-as-folder path above) and include the sextet frontmatter; `wiki/AGENTS.md` and `collections.json` define each collection's shape.
+
+**Ingesting the filing cabinet.** The fastest path to value: the owner drops invoices, quotes, letters, brochures, photos, scans, PDFs, recordings into `inbox/`, and you read through it and learn their business. To read a non-text file, convert it via the cloud (the one thing local reading can't always do): `files(action: 'convert', source: 'r2_path', source_value: 'inbox/<name>', filename: '<name>')`. It routes by type: PDF/Word/Excel/HTML → text; images → a description that also reads visible text; audio → a Whisper transcript; video → frames described + audio transcribed; PowerPoint → ask the owner to export to PDF. Files sync up in ~10s; if convert says not-found yet, wait and retry. Work the pile patiently: read each item, file the orgs/contacts/projects/decisions into the wiki, then **pivot to doing** (chase the invoice, draft the follow-up, set up a morning brief).
 
 ## Making office documents (Word / Excel / PowerPoint)
 
 When the owner needs a real `.docx`, `.xlsx`, or `.pptx` — an offer letter, a kickoff deck, a costed spreadsheet — use **OfficeCLI** (the `officecli` tool / `office-docs` MCP). It creates and edits Office files with real formula evaluation and native rendering, no Microsoft Office needed. If it isn't installed yet, run the `install-officecli` skill.
 
-**Always render and look before you send.** `officecli view <file> screenshot` gives you a PNG — open it and check it. Generating a deck or letter without rendering is flying blind; the layout is half of what the owner sees. Render → look → fix, then hand it over.
+**Always render and look before you send.** `officecli view <file> screenshot` gives you a PNG — open it and check it. Generating a deck or letter without rendering is flying blind; the layout is half of what the owner sees. Render → look → fix, then hand it over. Save the finished document into the wiki folder of whatever it's about (e.g. `wiki/orgs/clark/offer-letter.docx`), beside its record — never `/tmp`. A couple of OfficeCLI footguns: sheet/path names with spaces break the parser (use simple names or `Sheet1!A1` notation), and a freshly created `.docx` has no built-in `Heading1`/`Title` styles until you add them, so headings render flat unless you set them — which is exactly why you render and look.
 
 ## The cloud extensions (MCP)
 
-You have these Office Town MCP extensions (wired to the cloud worker, separate from this folder): `wiki`, `files`, `email`, `cron`, `voice`, `sandbox`.
-- `email` sends mail but needs Cloudflare Email Routing on the owner's domain — if a send fails on config, say so plainly.
-- `voice` call actions and `sandbox` run are alpha (`status: not_yet_wired`) — say it's coming, don't error confusingly.
-- For anything else (Slack, Drive, a CRM): use a skill/extension if you have one; otherwise tell the owner what to connect, don't build the integration yourself.
+The Office Town MCP extensions are the **cloud-capabilities layer** — they do what a machine on the owner's desk can't, not the things you can already do by touching local files. Reach for them only for cloud-unique work:
+
+- `email` — the town's own send channel, via Cloudflare Email Routing: mail from an *agent/town* address, not the owner's mailbox (needs Email Routing on their domain; if a send fails on config, say so plainly). **Identity matters here.** If the owner has connected their own Gmail / Workspace / Microsoft mailbox (an MCP, or a `gws`-style CLI), sending *as them* — their thread, their Sent, their signature — is usually what "email this client" means. Match the channel to the identity: as-the-owner for their correspondence, the CF channel for automated or agent-from-the-town mail.
+- `cron` — schedule jobs that run in the cloud even when this machine is off.
+- `workflows` — standing jobs the town runs on a trigger.
+- `files` — convert a binary the local agent can't read (image → description, audio → transcript) and publish a page to a URL. Storing a file is just writing it locally; don't use this for that.
+- `wiki` — search the whole cortex semantically once it's too big to grep. For local read/write, write files directly (see "Working with files").
+
+For anything else (Slack, Drive, a CRM): use a skill/extension if you have one; otherwise tell the owner what to connect, don't build the integration yourself.
 
 ## Knowing the owner
 
@@ -72,7 +84,7 @@ Hard-won learnings, business identity, contact graphs, decisions — they live i
 
 When you write, write to a file. Findings to `findings/`. Journal to today's `journal/<date>.md`. Tasks to `tasks/`. Don't promise to write something later — write it now or don't claim it.
 
-**Wiki entries always go through the `wiki` MCP tool (`write`/`link`), never direct file writes.** The MCP gives you the audit trail, the required `why:`, the canonical shape (entity-as-folder collections get `<slug>/<canonical>.md`, e.g. `contacts/jane-smith/contact.md`, not a flat file), and search indexing — direct writes skip all of that and get the shape wrong. Don't fall back to direct writes because a collection's folder looks empty: R2 has no real folders, so the MCP files the first entry in any registered collection cleanly.
+**Write wiki entries as files, directly, in the right shape.** Sync gives you the audit trail, frontmatter repair, search indexing, and attachment registration no matter who wrote the file — so a direct local write is first-class, no MCP round-trip needed. What you must get right is the **shape**: entity-as-folder collections are `<slug>/<canonical>.md` (e.g. `contacts/jane-smith/contact.md`), not a flat file; see `wiki/AGENTS.md`. R2 has no real folders, so just write the full path and the first entry in any collection lands cleanly. Reach for the `wiki` MCP only when you're remote, or when you want a richer audit `why:` than a plain sync can capture.
 
 ## The principal user steers
 
